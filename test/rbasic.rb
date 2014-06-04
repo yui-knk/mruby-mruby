@@ -32,6 +32,36 @@ assert 'MrbState::RBasic#color' do
   assert_include gc_definition, r.color
 end
 
+assert 'MrbState::RBasic#gc_gray?' do
+  r = [1,2,3].to_RBasic
+  bool = [true, false]
+  assert_include bool, r.gc_gray?
+end
+
+assert 'MrbState::RBasic#gc_white_a?' do
+  r = [1,2,3].to_RBasic
+  bool = [true, false]
+  assert_include bool, r.gc_white_a?
+end
+
+assert 'MrbState::RBasic#gc_white_b?' do
+  r = [1,2,3].to_RBasic
+  bool = [true, false]
+  assert_include bool, r.gc_white_b?
+end
+
+assert 'MrbState::RBasic#gc_whites?' do
+  r = [1,2,3].to_RBasic
+  bool = [true, false]
+  assert_include bool, r.gc_whites?
+end
+
+assert 'MrbState::RBasic#gc_black?' do
+  r = [1,2,3].to_RBasic
+  bool = [true, false]
+  assert_include bool, r.gc_black?
+end
+
 assert 'MrbState::RBasic#flags' do
   r = [1,2,3].to_RBasic
   assert_kind_of Fixnum, r.flags

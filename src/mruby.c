@@ -223,6 +223,45 @@ rbasic_color(mrb_state *mrb, mrb_value self)
   return mrb_str_new_cstr(mrb, color2str(color));
 }
 
+static uint32_t
+obj_color(mrb_state *mrb)
+{
+  mrb_value obj = mrb_vm_iv_get(mrb, mrb_intern_lit(mrb, "@obj"));
+
+  return mrb_obj_ptr(obj)->color;
+}
+
+
+static mrb_value
+rbasic_gc_gray_p(mrb_state *mrb, mrb_value self)
+{
+  return (obj_color(mrb) == 0) ? mrb_true_value() : mrb_false_value();
+}
+
+static mrb_value
+rbasic_gc_white_a_p(mrb_state *mrb, mrb_value self)
+{
+  return (obj_color(mrb) == 1) ? mrb_true_value() : mrb_false_value();
+}
+
+static mrb_value
+rbasic_gc_white_b_p(mrb_state *mrb, mrb_value self)
+{
+  return (obj_color(mrb) == 2) ? mrb_true_value() : mrb_false_value();
+}
+
+static mrb_value
+rbasic_gc_whites_p(mrb_state *mrb, mrb_value self)
+{
+  return (obj_color(mrb) == 3) ? mrb_true_value() : mrb_false_value();
+}
+
+static mrb_value
+rbasic_gc_black_p(mrb_state *mrb, mrb_value self)
+{
+  return (obj_color(mrb) == 4) ? mrb_true_value() : mrb_false_value();
+}
+
 static mrb_value
 rbasic_flags(mrb_state *mrb, mrb_value self)
 {
@@ -593,6 +632,11 @@ mrb_mruby_mruby_gem_init(mrb_state* mrb)
   mrb_define_method(mrb, rbasic, "initialize", rbasic_initialize, MRB_ARGS_REQ(1));
   mrb_define_method(mrb, rbasic, "tt", rbasic_tt, MRB_ARGS_NONE());
   mrb_define_method(mrb, rbasic, "color", rbasic_color, MRB_ARGS_NONE());
+  mrb_define_method(mrb, rbasic, "gc_gray?", rbasic_gc_gray_p, MRB_ARGS_NONE());
+  mrb_define_method(mrb, rbasic, "gc_white_a?", rbasic_gc_white_a_p, MRB_ARGS_NONE());
+  mrb_define_method(mrb, rbasic, "gc_white_b?", rbasic_gc_white_b_p, MRB_ARGS_NONE());
+  mrb_define_method(mrb, rbasic, "gc_whites?", rbasic_gc_whites_p, MRB_ARGS_NONE());
+  mrb_define_method(mrb, rbasic, "gc_black?", rbasic_gc_black_p, MRB_ARGS_NONE());
   mrb_define_method(mrb, rbasic, "flags", rbasic_flags, MRB_ARGS_NONE());
 
   mrb_define_class_method(mrb, rclass, "size", rclass_s_size, MRB_ARGS_NONE());
